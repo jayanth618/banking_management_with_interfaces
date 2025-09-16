@@ -6,42 +6,59 @@ public class gpay extends user implements account {
 	String moblie;
 	int choice;
 	double amt;
+	Scanner sc=new Scanner(System.in);
 
 	gpay(String name, long accno) {
 		super(name, accno);
 		System.out.println("please login");
-		Scanner sc=new Scanner(System.in);
 		System.out.println("enter moblie num");
 		moblie=sc.nextLine();
-		System.out.println("for deposite use choice 1,for withdraw use choice 2,to check yor balance use choice 3 ");
-		System.out.println("enter your choice");
-		choice=sc.nextInt();
-		System.out.println("enter your amount");
-		amt=sc.nextDouble();
-		sc.close();
-		if(moblie.length()==10&&(choice>0&&choice<4)&&amt>0) {
-			System.out.println("login successul");
-			login(moblie,choice,amt);
-		}
-		else {
-			System.out.println("login unsccessful,please enter correct inputs");
+		int k=moblie.length();
+		while(k>0) {
+			if(k==10) {
+				System.out.println("login done");
+				menu();
+				break;
+				
+			}
+			else {
+				System.out.println("login unscessful plzz re-enter");
+				moblie=sc.nextLine();
+				k=moblie.length();
+				
+			}
 		}
 	}
-	public void login(String moblie,int choice,double amt) {
-		this.moblie=moblie;
-		this.choice=choice;
-		this.amt=amt;
-		if(choice==1) {
+	public void menu() {
+	    System.out.println("Choose payment option:");
+        System.out.println("1. GPay");
+        System.out.println("2. ATM");
+        System.out.println("3. PhonePe");
+        System.out.println("4. Paytm");
+        System.out.print("Enter choice: ");
+		choice();
+	}
+	public void choice() {
+		System.out.println("enter your choice");
+		choice=sc.nextInt();
+		switch(choice) {
+		case 1:
+			System.out.println("you chocise to deposte");
+			System.out.println("enter your amount");
+			amt=sc.nextDouble();
 			deposit(amt);
-		}
-		else if(choice==2) {
+			break;
+		case 2:
+			System.out.println("you chocise to withdraw");
+			System.out.println("enter your amount");
+			amt=sc.nextDouble();
 			withdraw(amt);
-		}
-		else if(choice==3) {
+			
+			break;
+		case 3:
+			System.out.println("you chocise to check blance");
 			checkbal();
-		}
-		else {
-			System.out.println("invalid,enter correct choice");
+			break;
 		}
 	}
 	public void deposit(double amt) {
